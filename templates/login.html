@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+        
+{% block title %}
+ログイン
+{% endblock %}
+
+{% block head %}
+<h1>ログイン</h1>
+{% endblock %}
+
+{% block content %}
+<section id="login">
+    <form method="post" action='/login'>
+        <div>
+            <span>ID</span>：<input type="text" name="id">
+        </div>
+        <div>
+            <span>PASS</span>：<input type="password" name="password">
+        </div>
+        <button type="submit" value="Login">Login</button>  
+    </form>
+</section>
+{% endblock %}
+
+
+{% block footer %}
+
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+        
+{% block title %}
+サンプル
+{% endblock %}
+
+{% block head %}
+<h1><a href="/">Flask サンプルトップページ</a></h1>
+{% endblock %}
+
+{% block content %}
+    <section class="main">
+        <h3>一覧</h3>
+        <dl>
+        {% for val in items %}
+            <dt><a href="./detail/{{val.id}}">{{val.title}}</a></dt>
+            <dd>{{val.author}}</dd>
+        {% endfor %}
+        <input id="addIsbn" type="text" name="isbn" value="4041099129" />
+        <button id="addButton" typ="button">検索</button>
+    </section>
+
+    <section id="modalForm" class="form">
+        <form action="add" id="addForm" method="POST">
+            <dl>
+                <dt>ISBNコード</dt>
+                <dd><input name="isbn" value="" /></dd>
+                <dt>タイトル</dt>
+                <dd><input name="title" value="" /></dd>
+                <dt>出版社</dt>
+                <dd><input name="publisher" value="" /></dd>
+                <dt>作者</dt>
+                <dd><input name="author" value="" /></dd>
+                <dt>出版日</dt>
+                <dd><input name="published" value="" /></dd>
+                <dt>詳細</dt>
+                <dd><textarea name="description" value="" ></textarea> </dd>
+                <dt>画像</dt>
+                <dd id="image">
+                    <img id="thumbnail" src="" />
+                    <input type="hidden" name="image" value="" />
+                </dd>
+            </dl>
+            <div class="buttons">
+                <button id="register" typ="submit">登録</button>
+                <button id="cancel" typ="button">キャンセル</button>
+            </div> 
+        </form>
+    </section>
+
+{% endblock %}
+
+{% block footer %}
+    <script src="../static/js/index.js"></script>
+{% endblock %}

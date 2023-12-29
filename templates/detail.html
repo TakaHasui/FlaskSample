@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+        
+{% block title %}
+詳細 | {{ item.title }}
+{% endblock %}
+
+{% block head %}
+<h1><a href="/">Flask | サンプル詳細ページ</a></h1>
+
+{% endblock %}
+
+{% block content %}
+<section class="content">
+    <dl>
+        <dt>タイトル</dt>
+        <dd>{{ item.title }}
+            <p>{% if item.fav %}★{% endif %}</p>
+        </dd>
+        <dt>出版社</dt>
+        <dd>{{ item.publisher }}</dd>
+        <dt>著者</dt>
+        <dd>{{ item.author }}</dd>
+        <dt>出版日</dt>
+        <dd>{{ item.published }}</dd>
+        <dt>詳細</dt>
+        <dd>{{ item.description }}</dd>
+        <dd id="image">
+            <img id="thumbnail" src="" />
+            <input type="hidden" name="image" value="" />
+        </dd>
+    </dl>
+    <a href="/">戻る</a>
+</section>
+{% endblock %}
+
+
+{% block footer %}
+
+{% endblock %}

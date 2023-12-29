@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex nofolow">
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='style/common.css') }}">
+
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <header>
+        {% block head %}{% endblock %}
+        {% if request.path != '/login' %}
+            <div class="headerMenu">
+                <a class="logout" href="/logout">ログアウト</a>
+            </div>
+        {% endif %}
+    </header>
+
+    <section class='info'>
+        {% if session['id'] %}
+            <div>
+                ようこそ {{ session['id'] }} さん
+            </div>
+        {% endif %}
+        
+        {% if msg %}
+        <div id="msgField">
+            {{ msg }}
+        </div>
+        {% endif %}
+    </section>
+    
+    {% block content %}{% endblock %}
+
+    <footer>
+        {% block footer %}{% endblock %}
+        <div class="footer_bar">
+            copyright 2023 hogehoge
+        </div>
+    </footer>
+    
+</body>
+</html>

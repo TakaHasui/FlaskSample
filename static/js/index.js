@@ -1,11 +1,27 @@
-// 書籍API
-// https://openbd.jp/
-// https://dubdesign.net/javascript/openbd-book/
-let addNewBook = function () {
-  let isbn = document.getElementById("addIsbn").value;
+const srcNoimage = "./static/image/common/noimageFull.png";
 
-  callOpenBdApi(isbn);
-};
+function initAddForm() {
+  document.querySelector("#modalSection .formMsg").style.display = "none";
+  bookImgElem = document.getElementById("thumbnail");
+  bookImgElem.setAttribute("src", srcNoimage);
+
+  let bookData = [
+    "isbn",
+    "title",
+    "publisher",
+    "author",
+    "published",
+    "description",
+  ];
+  bookData.forEach(function (val) {
+    if (val == "description") {
+      document.querySelector('#addForm textarea[name="' + val + '"]').value =
+        "";
+    } else {
+      document.querySelector('#addForm input[name="' + val + '"]').value = "";
+    }
+  });
+}
 
 function callOpenBdApi(isbn) {
   // var isbn = userInput.split(' ').join('+');
@@ -18,48 +34,46 @@ function callOpenBdApi(isbn) {
       return response.json();
     })
     .then((data) => {
+      if (!data[0]) {
+        document.querySelector("#modalSection .formMsg").style.display =
+          "block";
+        return false;
+      }
+
       for (let i = 0; i < data.length; i++) {
         // サムネイル
-        const bookImg = document.getElementById("thumbnail");
-        const bookImgSrc = data[0].summary.cover;
+        bookImgElem = document.getElementById("thumbnail");
+        let bookImgSrc = data[0].summary.cover;
         if (bookImgSrc) {
-          bookImg.setAttribute("src", bookImgSrc);
+          bookImgElem.setAttribute("src", bookImgSrc);
           document.querySelector('#addForm input[name="image"]').value =
             data[0].summary.cover;
+        } else {
+          bookImgElem.setAttribute("src", srcNoimage);
         }
-
+        // console.log(data);
+        let description = "";
+        if (data[0].onix.CollateralDetail.TextContent) {
+          description = data[0].onix.CollateralDetail.TextContent[0].Text;
+        }
         let bookData = new Map([
           ["isbn", data[0].summary.isbn],
           ["title", data[0].summary.title],
           ["publisher", data[0].summary.publisher],
           ["author", data[0].summary.author],
           ["published", data[0].summary.pubdate],
-          ["description", data[0].onix.CollateralDetail.TextContent[0].Text],
+          ["description", description],
         ]);
-
         bookData.forEach(function (val, key) {
-          document.querySelector('#addForm input[name="' + key + '"]').value =
-            val;
+          if (key == "description") {
+            document.querySelector(
+              '#addForm textarea[name="' + key + '"]',
+            ).value = val;
+          } else {
+            document.querySelector('#addForm input[name="' + key + '"]').value =
+              val;
+          }
         });
-
-        // // ISBN
-        // document.querySelector('#addForm input[name="isbn"]').value =
-        //   data[0].summary.isbn;
-        // //書籍名
-        // document.querySelector('#addForm input[name="title"]').value =
-        //   data[0].summary.title;
-        // //出版社
-        // document.querySelector('#addForm input[name="publisher"]').value =
-        //   data[0].summary.publisher;
-        // //作者
-        // document.querySelector('#addForm input[name="author"]').value =
-        //   data[0].summary.author;
-        // //出版日
-        // document.querySelector('#addForm input[name="published"]').value =
-        //   data[0].summary.pubdate;
-        // //詳細
-        // document.querySelector('#addForm textarea[name="description"]').value =
-        //   data[0].onix.CollateralDetail.TextContent[0].Text;
       }
     })
     .catch((err) => {
@@ -67,31 +81,35 @@ function callOpenBdApi(isbn) {
     });
 }
 
-function displayModalWindow() {
-  let button = document.getElementById("addButton");
-  let menu = document.getElementById("modalForm");
-  let js_yes = document.getElementById("register");
-  let js_no = document.getElementById("cancel");
+window.addEventListener("DOMContentLoaded", function () {
+  let btnSearch = document.getElementById("addButton");
+  let modalSect = document.getElementById("modalSection");
+  let btnRegister = document.getElementById("register");
+  let btnCancel = document.getElementById("cancel");
 
-  /* ボタンがクリックされたら、 メニュー表示させる */
-  button.addEventListener("click", () => {
-    menu.classList.add("is-show");
+  btnSearch.addEventListener("click", () => {
+    initAddForm();
+
+    let isbn = document.getElementById("addIsbn").value;
+    callOpenBdApi(isbn);
+
+    modalSect.classList.add("is-show");
     return false;
   });
 
-  /* はい ボタンがクリックされたら、 アラート後画面を閉じる */
-  js_yes.addEventListener("click", () => {
-    menu.classList.remove("is-show");
+  btnRegister.addEventListener("click", () => {
+    modalSect.classList.remove("is-show");
     return false;
   });
 
-  /* いいえ ボタンを押したら メニューを閉じる */
-  js_no.addEventListener("click", (event) => {
-    menu.classList.remove("is-show");
+  btnCancel.addEventListener("click", (event) => {
+    modalSect.classList.remove("is-show");
     return false;
   });
-}
-
-let addBtnElem = document.getElementById("addButton");
-addBtnElem.addEventListener("click", addNewBook);
-window.addEventListener("DOMContentLoaded", displayModalWindow);
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") {
+      modalSect.classList.remove("is-show");
+      return false;
+    }
+  });
+});

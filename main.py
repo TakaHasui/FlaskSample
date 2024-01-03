@@ -9,11 +9,8 @@ from datetime import timedelta
 import contentful_management
 import contentful
 
-# Flask
-# https://shigeblog221.com/flask-nyumon/
+import models.BookRegister as Book
 
-# ログ
-# https://qiita.com/KWS_0901/items/7163e52b4041b909f5bc
 
 msg = ''
 app = Flask(__name__)
@@ -27,21 +24,16 @@ managementToken = ''
 deliveryToken = ''
 previewToken = ''
 
-# deliveryAPI
-# https://www.contentful.com/developers/docs/references/content-delivery-api/
-
 
 @app.route('/', methods=['GET'])
 def index():
     sessionMsg = ''
     if 'id' in session:
-        client = contentful.Client(
-            SPACE_ID,
-            session['dToken']
-        )
-
-        entries = client.entries(
-            {'content_type': CONTENT_TYPE_ID})
+        conditions = {
+            'order': '-sys.createdAt',
+        }
+        entries = Book.getEntries(conditions)
+        pprint.pprint(vars(entries[0]))
 
         if 'msg' in session:
             sessionMsg = session['msg']
@@ -89,11 +81,7 @@ def logout():
 
 @ app.route('/detail/<id>')
 def detail(id):
-    client = contentful.Client(
-        SPACE_ID,
-        session['dToken']
-    )
-    entry = client.entry(id)
+    entry = Book.getEntry(id)
 
     if entry:
         return render_template('detail.html', item=entry)
@@ -103,10 +91,26 @@ def detail(id):
 
 @ app.route('/add', methods=['POST'])
 def addBook():
-    print('****** ADD ******')
-    # Contentful Management API
-    # https://github.com/contentful/contentful-management.py?tab=readme-ov-file#client
+    # 登録済みチェック
+    client = contentful.Client(
+        SPACE_ID,
+        session['dToken']
+    )
+    conditions = {
+        # 'select': 'fields.isbn',
+        'fields.isbn': request.form.get('isbn')
+    }
+    entries = Book.getEntries(conditions)
+    pprint.pprint(entries)
+
+    if len(entries):
+        session['msg'] = '登録済みの本です'
+        session['msgColor'] = 'msgAlert'
+        return redirect(url_for('index'))
+
     client = contentful_management.Client(session['mToken'])
+    imgSrc = request.form.get('image') if request.form.get(
+        'image') else './static/image/common/noimageFull.png'
 
     entry_attributes = {
         'content_type_id': CONTENT_TYPE_ID,
@@ -129,9 +133,9 @@ def addBook():
             'description': {
                 'ja': request.form.get('description')
             },
-            # 'image': {
-            #     'ja': request.form.get('image')
-            # }
+            'thumbnail': {
+                'ja': imgSrc
+            }
         }
     }
     newEntry = client.entries(SPACE_ID, ENV_ID).create(
@@ -139,8 +143,7 @@ def addBook():
         entry_attributes
     )
     newEntry.publish()
-
-    pprint.pprint(newEntry)
+    # newEntry = Book.addEntry(request)
 
     # レスポンスの確認
     if newEntry.is_published:

@@ -20,32 +20,35 @@
         <button id="addButton" typ="button">検索</button>
     </section>
 
-    <section id="modalForm" class="form">
-        <form action="add" id="addForm" method="POST">
-            <dl>
-                <dt>ISBNコード</dt>
-                <dd><input name="isbn" value="" /></dd>
-                <dt>タイトル</dt>
-                <dd><input name="title" value="" /></dd>
-                <dt>出版社</dt>
-                <dd><input name="publisher" value="" /></dd>
-                <dt>作者</dt>
-                <dd><input name="author" value="" /></dd>
-                <dt>出版日</dt>
-                <dd><input name="published" value="" /></dd>
-                <dt>詳細</dt>
-                <dd><textarea name="description" value="" ></textarea> </dd>
-                <dt>画像</dt>
-                <dd id="image">
+    <section id="modalSection" class="modal_section">
+        <!-- 表示される中身 -->
+        <div class="menu__content">
+            <span id="cancel" typ="button">×</span>
+            <p class="formMsg">データがありません</p>
+            <form action="add" id="addForm" method="POST">
+                <div class="imageField">
                     <img id="thumbnail" src="" />
                     <input type="hidden" name="image" value="" />
-                </dd>
-            </dl>
-            <div class="buttons">
-                <button id="register" typ="submit">登録</button>
-                <button id="cancel" typ="button">キャンセル</button>
-            </div> 
-        </form>
+                </div>
+                <dl>
+                    <dt>ISBNコード</dt>
+                    <dd><input name="isbn" value="" /></dd>
+                    <dt>タイトル</dt>
+                    <dd><input name="title" value="" /></dd>
+                    <dt>出版社</dt>
+                    <dd><input name="publisher" value="" /></dd>
+                    <dt>作者</dt>
+                    <dd><input name="author" value="" /></dd>
+                    <dt>出版日</dt>
+                    <dd><input name="published" value="" /></dd>
+                    <dt>詳細</dt>
+                    <dd><textarea name="description" value="" ></textarea> </dd>
+                </dl>
+                <div class="buttons">
+                    <button id="register" class="modal_inButton" typ="submit">登録</button>
+                </div> 
+            </form>
+        </div>
     </section>
 
 {% endblock %}

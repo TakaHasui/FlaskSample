@@ -10,7 +10,15 @@
 
 {% block content %}
     <section class="main">
-        <h3>一覧</h3>
+        <h2></h2>
+        <div class="bookScroll">
+        {% for val in items %}
+            <a href="./detail/{{val.id}}">
+                <img src="{{val.thumbnail}}" alt="{{val.title}}" />
+            </a>
+        {% endfor %}
+        </div>
+        <h2>一覧</h2>
         <dl>
         {% for val in items %}
             <dt><a href="./detail/{{val.id}}">{{val.title}}</a></dt>
@@ -28,7 +36,7 @@
             <form action="add" id="addForm" method="POST">
                 <div class="imageField">
                     <img id="thumbnail" src="" />
-                    <input type="hidden" name="image" value="" />
+                    <input type="hidden" name="thumbnail" value="" />
                 </div>
                 <dl>
                     <dt>ISBNコード</dt>

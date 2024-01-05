@@ -3,13 +3,13 @@ import random
 import string
 import json
 import pprint
-import requests
 from datetime import timedelta
 
 import contentful_management
 import contentful
 
 import models.BookRegister as Book
+import models.Token as Token
 
 
 msg = ''
@@ -58,14 +58,8 @@ def login_():
         session['id'] = request.form.get('id')
         session['msg'] = 'ログインしました'
         session['dToken'] = request.form.get('password')
-        client = contentful.Client(
-            SPACE_ID,
-            session['dToken']
-        )
-        tokens = client.entries({
-            'content_type': 'tokens',
-            'fields.deliveryToken': session['dToken']
-        })
+
+        tokens = Token.getLoginData()
         session['mToken'] = tokens[0].raw['fields']['managementToken']
 
         return redirect(url_for('index'))

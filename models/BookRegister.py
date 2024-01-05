@@ -1,10 +1,8 @@
-from flask import Flask, render_template, url_for, request, session, redirect
+from flask import request, session
 import random
 import string
 import json
 import pprint
-import requests
-from datetime import timedelta
 from dictknife import deepmerge
 
 import contentful_management
@@ -18,14 +16,14 @@ deliveryToken = ''
 previewToken = ''
 
 
-def getEntries(conditions={}):
+def getEntries(myConditions={}):
     print('getEntries')
     client = contentful.Client(
         SPACE_ID,
         session['dToken']
     )
 
-    defaultCond = {
+    conditions = {
         'content_type': CONTENT_TYPE_ID,
         # 'select': 'sys.id,fields.title',  # フィールドの指定
         'limit': 100,
@@ -33,12 +31,12 @@ def getEntries(conditions={}):
         'order': 'sys.createdAt',  # 'fields.price' priceフィールドの降順ソート
         # 'fields.title[in]': 'example' #titleフィールドに'example'文字列が含む
     }
-    if len(conditions):
-        entriesCond = deepmerge(defaultCond, conditions)
 
-    pprint.pprint(entriesCond)
+    if len(myConditions):
+        conditions = deepmerge(conditions, myConditions)
 
-    entries = client.entries(entriesCond)
+    entries = client.entries(conditions)
+    pprint.pprint(vars(entries))
 
     return entries
 

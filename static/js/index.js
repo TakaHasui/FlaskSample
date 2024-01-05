@@ -4,6 +4,7 @@ function initAddForm() {
   document.querySelector("#modalSection .formMsg").style.display = "none";
   bookImgElem = document.getElementById("thumbnail");
   bookImgElem.setAttribute("src", srcNoimage);
+  document.querySelector('#addForm input[name="thumbnail"]').value = "";
 
   let bookData = [
     "isbn",
@@ -46,23 +47,32 @@ function callOpenBdApi(isbn) {
         let bookImgSrc = data[0].summary.cover;
         if (bookImgSrc) {
           bookImgElem.setAttribute("src", bookImgSrc);
-          document.querySelector('#addForm input[name="image"]').value =
+          document.querySelector('#addForm input[name="thumbnail"]').value =
             data[0].summary.cover;
         } else {
           bookImgElem.setAttribute("src", srcNoimage);
+          document.querySelector('#addForm input[name="thumbnail"]').value =
+            srcNoimage;
         }
-        // console.log(data);
         let description = "";
         if (data[0].onix.CollateralDetail.TextContent) {
           description = data[0].onix.CollateralDetail.TextContent[0].Text;
+        }
+
+        console.log("************************");
+        console.log(data);
+        // date = new Date(data[0].summary.pubdate);
+        let pubdate = data[0].summary.pubdate;
+        if (pubdate.length == 6) {
+          pubdate = pubdate + "01";
         }
         let bookData = new Map([
           ["isbn", data[0].summary.isbn],
           ["title", data[0].summary.title],
           ["publisher", data[0].summary.publisher],
           ["author", data[0].summary.author],
-          ["published", data[0].summary.pubdate],
-          ["description", description],
+          ["published", pubdate],
+          [("description", description)],
         ]);
         bookData.forEach(function (val, key) {
           if (key == "description") {

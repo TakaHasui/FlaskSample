@@ -39,6 +39,15 @@ section.main {
   margin: 0 auto;
 }
 
+.bookScroll {
+  & a {
+    text-decoration: none;
+    & img {
+      width: 200px;
+    }
+  }
+}
+
 #addButton {
   cursor: pointer;
 }

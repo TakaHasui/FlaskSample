@@ -13,6 +13,7 @@
 <body>
     <header>
         {% block head %}{% endblock %}
+        
         {% if request.path != '/login' %}
             <div class="headerMenu">
                 <a class="logout" href="/logout">ログアウト</a>
@@ -39,7 +40,7 @@
     <footer>
         {% block footer %}{% endblock %}
         <div class="footer_bar">
-            copyright 2023 hogehoge
+            copyright 2024 hogehoge
         </div>
     </footer>
     

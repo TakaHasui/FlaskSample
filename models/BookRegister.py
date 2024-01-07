@@ -36,7 +36,6 @@ def getEntries(myConditions={}):
         conditions = deepmerge(conditions, myConditions)
 
     entries = client.entries(conditions)
-    pprint.pprint(vars(entries))
 
     return entries
 
@@ -87,6 +86,14 @@ def addEntry():
     )
     newEntry.publish()
     return newEntry
+
+def getImage(assetId):
+    client = contentful.Client(
+        SPACE_ID,
+        session['dToken']
+    )
+    asset = client.asset(assetId)
+    return asset.url()
 
 
 def randomname(n):

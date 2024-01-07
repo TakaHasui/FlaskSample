@@ -19,20 +19,6 @@ header {
   }
 }
 
-#login {
-  & form {
-    width: 600px;
-    margin: 0 auto;
-    text-align: center;
-
-    & span {
-      text-align: right;
-      display: inline-block;
-      width: 10rem;
-    }
-  }
-}
-
 section.main {
   width: 70%;
   min-width: 730px;

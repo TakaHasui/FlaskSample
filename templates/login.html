@@ -12,10 +12,10 @@
 <section id="login">
     <form method="post" action='/login'>
         <div>
-            <span>ID</span>：<input type="text" name="id">
+            <span>ID</span><input type="text" name="id">
         </div>
         <div>
-            <span>PASS</span>：<input type="password" name="password">
+            <span>PASS</span><input type="password" name="password">
         </div>
         <button type="submit" value="Login">Login</button>  
     </form>
@@ -24,5 +24,7 @@
 
 
 {% block footer %}
+    <link rel="stylesheet"
+href="{{ url_for('static', filename='style/login.css') }}">
 
 {% endblock %}

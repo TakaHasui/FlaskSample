@@ -2,6 +2,7 @@ from flask import Flask, render_template, url_for, request, session, redirect
 import random
 import string
 import json
+import re
 import pprint
 from datetime import timedelta
 
@@ -33,13 +34,26 @@ def index():
             'order': '-sys.createdAt',
         }
         entries = Book.getEntries(conditions)
-        pprint.pprint(vars(entries[0]))
+
+        pprint.pprint('*** TEST **************************')
+        booksData = []
+        # pattern = "url='([a-zA-Z0-9./_]*)'"
+        for item in entries:
+            tmp = item.raw['fields']
+            pprint.pprint('*** 通過1 ***')
+            if 'imageM' in tmp:
+                pprint.pprint('*** 通過2 ***')
+                imageUrl = Book.getImage(tmp['imageM']['sys']['id'])
+                tmp['imageUrl'] = imageUrl
+
+            booksData.append(tmp)
 
         if 'msg' in session:
             sessionMsg = session['msg']
             del session['msg']
+        pprint.pprint(booksData)
 
-        return render_template('index.html', items=entries, msg=sessionMsg)
+        return render_template('index.html', items=booksData, msg=sessionMsg)
 
     return redirect(url_for('login_'))
 
@@ -127,7 +141,7 @@ def addBook():
             'description': {
                 'ja': request.form.get('description')
             },
-            'thumbnail': {
+            'imageUrl': {
                 'ja': imgSrc
             }
         }

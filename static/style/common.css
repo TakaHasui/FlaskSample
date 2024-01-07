@@ -5,17 +5,22 @@ body {
 
 header {
   height: 36px;
-  & h1 {
-    font-size: 22px;
-    display: inline-block;
-    width: 316px;
-  }
-  & .headerMenu {
-    text-align: right;
-    display: inline-block;
-  }
-  & .logout {
-    right: 20px;
+
+  & > div {
+    max-width: 1400px;
+
+    & h1 {
+      font-size: 22px;
+      display: inline-block;
+      width: 316px;
+    }
+    & .headerMenu {
+      text-align: right;
+      display: inline-block;
+    }
+    & .logout {
+      right: 20px;
+    }
   }
 }
 
@@ -23,46 +28,7 @@ section.main {
   width: 70%;
   min-width: 730px;
   margin: 0 auto;
-}
-
-.bookScroll {
-  & a {
-    text-decoration: none;
-    & img {
-      width: 200px;
-    }
-  }
-}
-
-#addButton {
-  cursor: pointer;
-}
-
-#addForm {
-  & .imageField {
-    display: inline-block;
-    width: 35%;
-    & #thumbnail {
-      width: 200px;
-      height: 290px;
-    }
-  }
-  & dl {
-    display: inline-block;
-    width: 60%;
-    text-align: left;
-
-    & > * {
-      width: 100%;
-    }
-    & input {
-      width: 300px;
-    }
-    & textarea {
-      width: 300px;
-      height: 50px;
-    }
-  }
+  min-height: 360px;
 }
 
 @media only screen and (max-device-width: 730px) {
@@ -90,74 +56,3 @@ footer {
     width: 100%;
   }
 }
-
-/* モーダル用サンプル用 CSS start ================== */
-/* モーダルウィンドウの表示非表示や表示される位置を制御する */
-.modal_section {
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  /* モーダルウィンドウ以外の外側部分、どの程度透過するか */
-  background-color: rgba(0, 0, 0, 0.4) !important;
-  opacity: 0;
-  pointer-events: none;
-  visibility: hidden;
-  /* モーダルウィンドウを表示するまでの時間 0.3秒に指定 */
-  transition: all 0.3s ease;
-  transition-property: opacity, pointer-events, visibility;
-
-  /* クリックされた際にウィンドウ表示、非表示の切り替えを行う部分 */
-  &.is-show {
-    opacity: 1;
-    pointer-events: auto;
-    visibility: visible;
-  }
-  & .formMsg {
-    margin: 0;
-    font-weight: bold;
-  }
-}
-
-/* ウィンドウ全体のCSS */
-.menu__content {
-  width: 600px;
-  padding: 8px 8px 16px;
-  background: #dedede;
-  text-align: center;
-  border-radius: 5px;
-}
-
-/* Yes No 2つのボタンを横並べする */
-.inButtonSetting {
-  display: flex;
-  justify-content: center;
-}
-
-/* Yes No ボタン自体の装飾 */
-.modal_inButton {
-  width: 150px;
-  padding: 5px !important;
-  margin-right: 10px;
-  margin-left: 10px;
-  border: solid 1px #aaa;
-  background: #efefef;
-  border-radius: 3px;
-  cursor: pointer;
-}
-#cancel {
-  color: #fff;
-  background: #555;
-  border-radius: 12px;
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  top: -20px;
-  right: -308px;
-  width: 24px;
-}
-/* モーダル用サンプル用 CSS end  ================== */

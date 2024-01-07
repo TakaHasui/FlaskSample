@@ -1,5 +1,10 @@
 {% extends "layout.html" %}
-        
+
+{% block meta%}
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style/index.css') }}">
+{% endblock %}
+
 {% block title %}
 サンプル
 {% endblock %}
@@ -10,26 +15,25 @@
 
 {% block content %}
     <section class="main">
+        <input id="addIsbn" type="text" name="isbn" value="4041099129" />
+        <button id="addButton" typ="button">検索</button>
+        
         <h2>表紙スクロール</h2>
         <div class="bookScroll">
-        {% for val in items %}
-            <a href="./detail/{{ val.id }}" alt="{{ val.title }}">
-            {% if val.imageUrl %}
-                <img src="{{ val.imageUrl }}" />
-            {% else %}
-                <img src="../static/image/common/noimageFull.png" />
-            {% endif %}
+            {% for val in items %}
+            <a href="./detail/{{ val.id }}">
+                <div class="img_wrap">
+                    <img src="{{ val.imageUrl }}" alt="{{ val.title }}" />
+                </div>
             </a>
-        {% endfor %}
+            {% endfor %}
         </div>
         <h2>一覧</h2>
         <dl>
         {% for val in items %}
-            <dt><a href="./detail/{{ val.id }}">{{val.title}}</a></dt>
-            <dd>{{val.author}}</dd>
+            <dt><a href="./detail/{{ val.id }}">{{ val.title }}</a></dt>
+            <dd>{{ val.author }}</dd>
         {% endfor %}
-        <input id="addIsbn" type="text" name="isbn" value="4041099129" />
-        <button id="addButton" typ="button">検索</button>
     </section>
 
     <section id="modalSection" class="modal_section">

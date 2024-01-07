@@ -35,24 +35,23 @@ def index():
         }
         entries = Book.getEntries(conditions)
 
-        pprint.pprint('*** TEST **************************')
         booksData = []
-        # pattern = "url='([a-zA-Z0-9./_]*)'"
         for item in entries:
             tmp = item.raw['fields']
-            pprint.pprint('*** 通過1 ***')
-            if 'imageM' in tmp:
-                pprint.pprint('*** 通過2 ***')
-                imageUrl = Book.getImage(tmp['imageM']['sys']['id'])
-                tmp['imageUrl'] = imageUrl
+            tmp['id'] = item.id
+
+            if 'imageUrl' not in tmp:
+                tmp['imageUrl'] = '../static/image/common/noimageFull.png'
+                if 'imageM' in tmp:
+                    tmp['imageUrl'] = Book.getImage(tmp['imageM']['sys']['id'])
 
             booksData.append(tmp)
 
         if 'msg' in session:
             sessionMsg = session['msg']
             del session['msg']
-        pprint.pprint(booksData)
 
+        pprint.pprint(booksData)
         return render_template('index.html', items=booksData, msg=sessionMsg)
 
     return redirect(url_for('login_'))
@@ -147,7 +146,7 @@ def addBook():
         }
     }
     newEntry = client.entries(SPACE_ID, ENV_ID).create(
-        randomname(22),
+        Book.randomname(22),
         entry_attributes
     )
     newEntry.publish()
@@ -165,8 +164,9 @@ def addBook():
     return redirect(url_for('index'))
 
 
-def randomname(n):
-    return ''.join(random.choices(string.ascii_letters + string.digits, k=n))
+@app.errorhandler(404)
+def error_404(error):
+    return render_template('404.html')
 
 
 if __name__ == '__main__':

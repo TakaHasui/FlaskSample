@@ -2,9 +2,9 @@ const srcNoimage = "./static/image/common/noimageFull.png";
 
 function initAddForm() {
   document.querySelector("#modalSection .formMsg").style.display = "none";
-  bookImgElem = document.getElementById("thumbnail");
+  bookImgElem = document.getElementById("imageUrl");
   bookImgElem.setAttribute("src", srcNoimage);
-  document.querySelector('#addForm input[name="thumbnail"]').value = "";
+  document.querySelector('#addForm input[name="imageUrl"]').value = "";
 
   let bookData = [
     "isbn",
@@ -43,15 +43,15 @@ function callOpenBdApi(isbn) {
 
       for (let i = 0; i < data.length; i++) {
         // サムネイル
-        bookImgElem = document.getElementById("thumbnail");
+        bookImgElem = document.getElementById("imageUrl");
         let bookImgSrc = data[0].summary.cover;
         if (bookImgSrc) {
           bookImgElem.setAttribute("src", bookImgSrc);
-          document.querySelector('#addForm input[name="thumbnail"]').value =
+          document.querySelector('#addForm input[name="imageUrl"]').value =
             data[0].summary.cover;
         } else {
           bookImgElem.setAttribute("src", srcNoimage);
-          document.querySelector('#addForm input[name="thumbnail"]').value =
+          document.querySelector('#addForm input[name="imageUrl"]').value =
             srcNoimage;
         }
         let description = "";

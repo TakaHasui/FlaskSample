@@ -87,6 +87,7 @@ def addEntry():
     newEntry.publish()
     return newEntry
 
+
 def getImage(assetId):
     client = contentful.Client(
         SPACE_ID,

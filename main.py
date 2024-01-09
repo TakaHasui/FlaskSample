@@ -1,8 +1,4 @@
 from flask import Flask, render_template, url_for, request, session, redirect
-import random
-import string
-import json
-import re
 import pprint
 from datetime import timedelta
 
@@ -40,10 +36,8 @@ def index():
             tmp = item.raw['fields']
             tmp['id'] = item.id
 
-            if 'imageUrl' not in tmp:
-                tmp['imageUrl'] = '../static/image/common/noimageFull.png'
-                if 'imageM' in tmp:
-                    tmp['imageUrl'] = Book.getImage(tmp['imageM']['sys']['id'])
+            if 'imageM' in tmp:
+                tmp['imageUrl'] = Book.getImage(tmp['imageM']['sys']['id'])
 
             booksData.append(tmp)
 
@@ -51,7 +45,6 @@ def index():
             sessionMsg = session['msg']
             del session['msg']
 
-        pprint.pprint(booksData)
         return render_template('index.html', items=booksData, msg=sessionMsg)
 
     return redirect(url_for('login_'))
@@ -89,6 +82,12 @@ def logout():
 @ app.route('/detail/<id>')
 def detail(id):
     entry = Book.getEntry(id)
+    entry = entry.raw['fields']
+
+    if 'imageM' in entry:
+        entry['imageUrl'] = Book.getImage(entry['imageM']['sys']['id'])
+
+    pprint.pprint(entry)
 
     if entry:
         return render_template('detail.html', item=entry)

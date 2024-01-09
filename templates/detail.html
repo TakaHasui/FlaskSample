@@ -1,5 +1,10 @@
 {% extends "layout.html" %}
         
+{% block meta%}
+<link rel="stylesheet"
+    href="{{ url_for('static', filename='style/detail.css') }}">
+{% endblock %}
+
 {% block title %}
 詳細 | {{ item.title }}
 {% endblock %}
@@ -10,26 +15,33 @@
 {% endblock %}
 
 {% block content %}
-<section class="content">
-    <dl>
-        <dt>タイトル</dt>
-        <dd>{{ item.title }}
-            <p>{% if item.fav %}★{% endif %}</p>
-        </dd>
-        <dt>出版社</dt>
-        <dd>{{ item.publisher }}</dd>
-        <dt>著者</dt>
-        <dd>{{ item.author }}</dd>
-        <dt>出版日</dt>
-        <dd>{{ item.published }}</dd>
-        <dt>詳細</dt>
-        <dd>{{ item.description }}</dd>
-        <dd id="image">
-            <img id="thumbnail" src="" />
-            <input type="hidden" name="image" value="" />
-        </dd>
-    </dl>
-    <a href="/">戻る</a>
+<section class="main">
+    <div class="flex">
+        <div class="imageField">
+        {% if item.imageUrl %}
+            <img src="{{ item.imageUrl }}" alt="{{ item.title }}" />
+        {% else %}
+            <img src="../static/image/common/noimageFull.png" alt="{{ item.title }}" />
+        {% endif %}
+        </div>
+        <div class="contentField">
+            <dl>
+                <dt>タイトル</dt>
+                <dd>{{ item.title }}</dd>
+                <dt>出版社</dt>
+                <dd>{{ item.publisher }}</dd>
+                <dt>著者</dt>
+                <dd>{{ item.author }}</dd>
+                <dt>出版日</dt>
+                <dd>{{ item.published }}</dd>
+                <dt>詳細</dt>
+                <dd class="fsize-20">{{ item.description }}</dd>
+            </dl>
+        </div>
+    </div>
+    <p>
+        <a href="/">戻る</a> 
+    </p>
 </section>
 {% endblock %}
 

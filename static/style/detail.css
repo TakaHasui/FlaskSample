@@ -1,0 +1,34 @@
+.main {
+  & img {
+    width: 360px;
+  }
+
+  & .imageField {
+    display: inline-block;
+    width: 30%;
+    min-width: 360px;
+  }
+  & .contentField {
+    display: inline-block;
+    width: 40%;
+    min-width: 720px;
+  }
+}
+.flex {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+dt {
+  font-weight: bold;
+  font-size: 18px;
+}
+dd {
+  font-size: 28px;
+  margin-bottom: 14px;
+}
+.fsize-20 {
+  font-size: 20px !important;
+}

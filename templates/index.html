@@ -2,7 +2,7 @@
 
 {% block meta%}
 <link rel="stylesheet"
-href="{{ url_for('static', filename='style/index.css') }}">
+    href="{{ url_for('static', filename='style/index.css') }}">
 {% endblock %}
 
 {% block title %}
@@ -20,13 +20,17 @@ href="{{ url_for('static', filename='style/index.css') }}">
         
         <h2>表紙スクロール</h2>
         <div class="bookScroll">
-            {% for val in items %}
+        {% for val in items %}
             <a href="./detail/{{ val.id }}">
                 <div class="img_wrap">
+                {% if val.imageUrl %}
                     <img src="{{ val.imageUrl }}" alt="{{ val.title }}" />
+                {% else %}
+                    <img src="../static/image/common/noimageFull.png" alt="{{ val.title }}" />
+                {% endif %}
                 </div>
             </a>
-            {% endfor %}
+        {% endfor %}
         </div>
         <h2>一覧</h2>
         <dl>

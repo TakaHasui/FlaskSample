@@ -1,10 +1,16 @@
 body {
   margin: 0;
   padding: 0;
+  font-family: "メイリオ", "Meiryo", "Hiragino Kaku Gothic ProN",
+    "ヒラギノ角ゴ ProN W3", sans-serif;
 }
 
 header {
   height: 64px;
+
+  & h1 {
+    margin: 0;
+  }
 
   & .headerFlex {
     display: flex;
@@ -14,12 +20,6 @@ header {
     width: 95%;
     max-width: 1360px;
     margin: 0 auto;
-
-    & h1 {
-      font-size: 22px;
-      display: inline-block;
-      width: 316px;
-    }
   }
 
   & .headerLeft {
@@ -68,9 +68,13 @@ footer {
   width: 100%;
 
   & .footer_bar {
-    background-color: #87eda6;
+    color: #fff;
     padding: 10px 0;
     text-align: center;
     width: 100%;
   }
+}
+
+.baseColor {
+  background-color: #006200;
 }

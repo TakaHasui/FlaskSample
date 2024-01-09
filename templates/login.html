@@ -10,12 +10,13 @@
 {% endblock %}
 
 {% block head %}
-<h1>ログイン</h1>
 {% endblock %}
 
 {% block content %}
 <section id="login">
     <form method="post" action='/login'>
+        <h2>ログイン</h2>
+        <img src="../static/image/common/logo01.png" alt="Book × Flask"/>
         <div>
             <span>ID</span><input type="text" name="id">
         </div>

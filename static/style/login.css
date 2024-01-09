@@ -1,9 +1,13 @@
+h2 {
+  margin: 20px auto 0;
+}
+
 #login {
   margin: 0;
   padding: 80px 0;
   background-image: linear-gradient(
-      rgba(255, 255, 255, 0.9),
-      rgba(229, 251, 60, 0.5)
+      rgba(255, 255, 255, 0.8),
+      rgba(255, 255, 255, 0.5)
     ),
     url(../image/common/bgImage01.jpg);
 
@@ -11,11 +15,15 @@
     background-color: #fff;
     border: 5px solid #198300;
     border-radius: 24px;
-    padding: 100px 0;
+    padding: 20px 0 40px;
 
     margin: 10px auto;
     text-align: center;
     width: 600px;
+
+    & img {
+      width: 220px;
+    }
 
     & > div {
       margin: 0 auto 30px;

@@ -16,7 +16,9 @@
     <header>
         <div class="headerFlex">
             <div class="headerLeft">
-                <img src="../static/image/common/logo03.png" alt-"Book × Flask"/>
+                <h1>
+                    <img src="../static/image/common/logo03.png" alt="Book × Flask"/>
+                </h1>
                 {% if session['id'] %}
                     <span>ようこそ {{ session['id'] }} さん</span>
                 {% endif %}
@@ -44,7 +46,7 @@
 
     <footer>
         {% block footer %}{% endblock %}
-        <div class="footer_bar">
+        <div class="footer_bar baseColor">
             copyright 2024 hogehoge
         </div>
     </footer>

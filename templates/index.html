@@ -6,17 +6,18 @@
 {% endblock %}
 
 {% block title %}
-サンプル
+トップ
 {% endblock %}
 
 {% block head %}
-<h1><a href="/">Flask サンプルトップページ</a></h1>
 {% endblock %}
 
 {% block content %}
     <section class="main">
-        <input id="addIsbn" type="text" name="isbn" value="4041099129" />
-        <button id="addButton" typ="button">検索</button>
+        <div class="addBtnField">
+            <input id="addIsbn" type="text" name="isbn" placeholder="isbnコード" />
+            <button id="addButton" typ="button">検索</button>
+        </div>
         
         <h2>表紙スクロール</h2>
         <div class="bookScroll">
@@ -28,6 +29,11 @@
                 {% else %}
                     <img src="../static/image/common/noimageFull.png" alt="{{ val.title }}" />
                 {% endif %}
+                    <div class="mask">
+                        <div class="caption">
+                            {% print(val.title) if val.title|length < 16 else val.title[:14] + '…'  %}
+                        </div>
+                    </div>
                 </div>
             </a>
         {% endfor %}

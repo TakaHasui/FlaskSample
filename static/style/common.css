@@ -4,23 +4,41 @@ body {
 }
 
 header {
-  height: 36px;
+  height: 64px;
 
-  & > div {
-    max-width: 1400px;
+  & .headerFlex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 95%;
+    max-width: 1360px;
+    margin: 0 auto;
 
     & h1 {
       font-size: 22px;
       display: inline-block;
       width: 316px;
     }
-    & .headerMenu {
-      text-align: right;
-      display: inline-block;
+  }
+
+  & .headerLeft {
+    & img {
+      width: 280px;
     }
-    & .logout {
-      right: 20px;
+    & span {
+      position: absolute;
+      top: 22px;
     }
+  }
+
+  & .headerRight {
+    text-align: right;
+    display: inline-block;
+  }
+
+  & .logout {
+    right: 20px;
   }
 }
 

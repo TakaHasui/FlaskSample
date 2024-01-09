@@ -8,29 +8,30 @@
 
     {% block meta %}{% endblock %}
 
-    <title>{% block title %}{% endblock %}</title>
+    <title>Book&times;Flask | {% block title %}{% endblock %}</title>
     <link rel="icon" href="/static/image/common/favicon.ico" id="favicon">
     <link rel="apple-touch-icon" sizes="180x180" href="/static/image/common/favicon.png">
 </head>
 <body>
     <header>
-        <div>
+        <div class="headerFlex">
+            <div class="headerLeft">
+                <img src="../static/image/common/logo03.png" alt-"Book × Flask"/>
+                {% if session['id'] %}
+                    <span>ようこそ {{ session['id'] }} さん</span>
+                {% endif %}
+            </div>
         {% block head %}{% endblock %}
         
-        {% if request.path != '/login' %}
-            <div class="headerMenu">
+            <div class="headerRight">
+            {% if request.path != '/login' %}
                 <a class="logout" href="/logout">ログアウト</a>
+            {% endif %}
             </div>
-        {% endif %}
         </div>
     </header>
 
     <section class='info'>
-        {% if session['id'] %}
-            <div>
-                ようこそ {{ session['id'] }} さん
-            </div>
-        {% endif %}
         
         {% if msg %}
         <div id="msgField" class="{{ session['msgColor'] }}">

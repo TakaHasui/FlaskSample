@@ -6,11 +6,10 @@
 {% endblock %}
 
 {% block title %}
-詳細 | {{ item.title }}
+{{ item.title }}
 {% endblock %}
 
 {% block head %}
-<h1><a href="/">Flask | サンプル詳細ページ</a></h1>
 
 {% endblock %}
 
@@ -40,7 +39,7 @@
         </div>
     </div>
     <p>
-        <a href="/">戻る</a> 
+        <a class="backLink" href="/">戻る</a> 
     </p>
 </section>
 {% endblock %}

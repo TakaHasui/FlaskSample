@@ -13,7 +13,7 @@ h2 {
 
   & form {
     background-color: #fff;
-    border: 5px solid #198300;
+    border: 5px solid #196b69;
     border-radius: 24px;
     padding: 20px 0 40px;
 
@@ -22,7 +22,7 @@ h2 {
     width: 600px;
 
     & img {
-      width: 220px;
+      width: 200px;
     }
 
     & > div {
@@ -45,16 +45,18 @@ h2 {
 
     & button {
       border-radius: 7px;
-      border: 3px solid #008b00;
-      background-color: #00b600;
+      border: 3px solid #196b69;
+      background-color: #208887;
       color: #fff;
       cursor: pointer;
       font-size: 20px;
       padding: 5px 10px;
     }
     & button:hover {
-      border: 3px solid #00b200;
-      background-color: #00eb00;
+      border: 3px solid #196b69;
+      background-color: #22a2a0;
+      transform: scale(1.1);
+      transition-duration: 0.1s;
     }
   }
 }

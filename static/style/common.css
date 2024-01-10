@@ -10,6 +10,7 @@ header {
 
   & h1 {
     margin: 0;
+    display: inline-block;
   }
 
   & .headerFlex {
@@ -39,6 +40,9 @@ header {
 
   & .logout {
     right: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
   }
 }
 
@@ -64,6 +68,13 @@ section.main {
   background-color: #ff7a7a !important;
 }
 
+.backLink {
+  right: 20px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 16px;
+}
+
 footer {
   width: 100%;
 
@@ -76,5 +87,5 @@ footer {
 }
 
 .baseColor {
-  background-color: #006200;
+  background-color: #196b69;
 }

@@ -19,7 +19,7 @@
             <button id="addButton" typ="button" autofocus>検 索</button>
         </div>
         
-        <h2>表紙スクロール</h2>
+        <h2>表紙一覧</h2>
         <div class="bookScroll">
         {% for val in items %}
             <a href="./detail/{{ val.id }}">
@@ -38,12 +38,33 @@
             </a>
         {% endfor %}
         </div>
-        <h2>一覧</h2>
-        <dl>
-        {% for val in items %}
-            <dt><a href="./detail/{{ val.id }}">{{ val.title }}</a></dt>
-            <dd>{{ val.author }}</dd>
-        {% endfor %}
+
+        <h2>表紙スライダー</h2>
+        <div class="splide bookSlider" role="group" aria-label="Splideの基本的なHTML">
+            <div class="splide__track">
+                <ul class="splide__list">
+                {% for val in items %}
+                    <li class="splide__slide">
+                        <a href="./detail/{{ val.id }}">
+                            <div class="img_wrap">
+                            {% if val.imageUrl %}
+                                <img src="{{ val.imageUrl }}" alt="{{ val.title }}" />
+                            {% else %}
+                                <img src="../static/image/common/noimageFull.png" alt="{{ val.title }}" />
+                            {% endif %}
+                                <div class="mask">
+                                    <div class="caption">
+                                        {% print(val.title) if val.title|length < 16 else val.title[:14] + '…'  %}
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+
     </section>
 
     <section id="modalSection" class="modal_section">
@@ -81,4 +102,19 @@
 
 {% block footer %}
     <script src="../static/js/index.js"></script>
+    <script>
+        new Splide('.splide', {
+            type: 'loop',
+            perPage: 6,
+            perMove: 1,
+            gap: 20,
+            autoplay: true,
+            direction: 'rtl',
+            breakpoints: {
+                1200: {
+                    perPage: 5,
+                },
+            }
+        }).mount();
+    </script>
 {% endblock %}

@@ -33,6 +33,7 @@
 }
 
 .bookScroll {
+  margin-bottom: 5rem;
   & a {
     text-decoration: none;
 
@@ -46,6 +47,11 @@
       height: 213px;
       width: 150px;
     }
+  }
+}
+.bookSlider {
+  .img_wrap {
+    overflow: hidden;
   }
 }
 .img_wrap .caption {
@@ -182,3 +188,17 @@
   width: 24px;
 }
 /* モーダル用サンプル用 CSS end  ================== */
+
+/* スライダー */
+.splide .splide__arrow--prev {
+  right: -2rem !important;
+}
+.splide .splide__arrow--next {
+  left: -2rem !important;
+}
+.splide__pagination {
+  bottom: -2rem !important;
+}
+.splide__pagination__page.is-active {
+  background: #333 !important;
+}
